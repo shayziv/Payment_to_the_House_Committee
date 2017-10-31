@@ -1,0 +1,38 @@
+[{
+    "firstName": "Eli",
+    "lastName": "Chen",
+    "seniority": 2,
+    "Type": "tenant",
+    "floor": "4",
+    "ApartmentNumber": 4,
+	"sumdebt": 50,
+	"debt" : true
+	
+}, {
+    "firstName": "Nati",
+    "lastName": "Shalom",
+    "seniority": 1,
+    "Type": "owner",
+    "floor": 3,
+    "ApartmentNumber": 3,
+	"sumdebt": 10,
+	"debt" : false
+}, {
+    "firstName": "Eti",
+    "lastName": "Raz",
+    "seniority": 1,
+    "Type": "owner",
+    "floor": 2,
+    "ApartmentNumber": 2,
+	"sumdebt": 15,
+	"debt" : true
+}, {
+    "firstName": "Noa",
+    "lastName": "Levi",
+    "seniority": 1,
+    "Type": "owner",
+    "floor": 1,
+    "ApartmentNumber": 1,
+	"sumdebt": 0,
+	"debt" : false
+}]
