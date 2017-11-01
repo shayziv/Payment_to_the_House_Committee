@@ -1,0 +1,31 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head id="Head1" runat="server">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>page pay</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        function posturl() {
+            var terminalnumber = "1001";
+            var ExtCInvoiceTo = "elicohen";
+            var subscribers_email = "sss@gmail.com";
+            var description = "item";
+            var sum = "15";
+            var Languages = "en";
+            var Currency = "NIS";
+            var InvCreateInvoice = "1";
+            var url = "https://secure.cardcom.co.il/External/ExternalClearingPage3.aspx?";
+
+            var fullurl = url + 'terminalnumber=' + terminalnumber + '&ExtCInvoiceTo=' + ExtCInvoiceTo + '&subscribers_email=' + subscribers_email + '&description=' + description + '&sum=' + sum + '&Languages=' + Languages + '&Currency=' + Currency + '&InvCreateInvoice=' + InvCreateInvoice;
+            window.location.href = fullurl;
+        }
+
+    </script>
+</head>
+<body>
+  
+    <input id="submit" name="cmdPayNow" type="submit" onclick="posturl();" value="בצע רכישה" />
+    
+</body>
+</html>
