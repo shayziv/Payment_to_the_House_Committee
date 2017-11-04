@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!doctype html>
 <html>
 <head>
     <!--   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">-->
@@ -6,7 +6,8 @@
     <title>Payment to the House Committee</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript">
 
@@ -27,17 +28,60 @@
                         $('#tenant' + i).click(function () {
                             alert("1");
                             alert(data[i].ApartmentNumber);
-                         // window.location.replace("http://stackoverflow.com");
-                        //  window.location.href = "https://secure.cardcom.co.il/External/ExternalClearingPage3.aspx?TerminalNumber=1001&Languages=en&description=Payment_to_the_House_Committee&sum=2&PageTxtDesc=0&InvCreateInvoice=1";
+                            // window.location.replace("http://stackoverflow.com");
+                            //  window.location.href = "https://secure.cardcom.co.il/External/ExternalClearingPage3.aspx?TerminalNumber=1001&Languages=en&description=Payment_to_the_House_Committee&sum=2&PageTxtDesc=0&InvCreateInvoice=1";
                         });
                     }
                 });
             });
-        }); 
+        });
+
+        // PAY button ajax post
+        $(document).ready(function () {
+            $("#button").click(function () {
+                var bill = ($("#sum_input").val());
+                $.post("https://secure.cardcom.co.il/Interface/LowProfile.aspx",
+            {
+                Operation: "1",
+                TerminalNumber: "1000",
+                UserName: "barak9611",
+                SumToBill: bill,
+                CoinID: "1",
+                Language: "en",
+                ProductName: "item",
+                APILevel: "10",
+                codepage: "65001",
+                SuccessRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/SuccessPage.html",
+                ErrorRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/ErrorPage.html",
+                IndicatorUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/IndicatorUrl.html"
+            },
+            function (data) {
+                var Result = Decoder(data);
+                var urlResult = Result.slice(86, 204);
+                window.location.href = urlResult;
+
+                var lpc = Result.slice(45, 81);
+                // alert(lpc);
+                var GETindicator = "https://secure.cardcom.co.il/Interface/BillGoldGetLowProfileIndicator.aspx?terminalnumber=1000&username=barak9611&lowprofilecode=";
+                //   var a = GETindicator + lpc;
+
+                //     alert(a);
+
+                //   $("#divResult").html(Result);
+              });
+            });
+        });
+
+        function Decoder(DataUrl) {
+            var DataUrl;
+            var uri_dec = decodeURIComponent(DataUrl);
+            return uri_dec;
+        }
+
     </script>
 </head>
 <body>
-    <div class="container span6">
+    <div class="container-fluid">
         <div class="table-responsive">
             <button id="RefreshAjax">
                 Refresh Ajax</button>
@@ -61,6 +105,14 @@
                 </tr>
             </table>
             <div class="showclass" id="showdiv">
+            </div>
+            <form>
+            <input id="sum_input" type="text">
+            <button id="button" type="button" class="btn btn-info">
+                Pay2
+            </button>
+            </form>
+            <div id="divResult">
             </div>
         </div>
     </div>
