@@ -1,0 +1,38 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head id="Head1" runat="server">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>page pay</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        //* Vvanila Js
+        function postbill(sum) {
+            alert(sum);
+            var Operation = "1";
+            var TerminalNumber = "1000";
+            var UserName = "barak9611";
+            var SumToBill = sum;
+            var CoinID = "1";
+            var Language = "en";
+            var ProductName = "item";
+            var APILevel = "10";
+            var codepage = "65001";
+            var SuccessRedirectUrl = "www.google.com";
+            var ErrorRedirectUrl = "www.google.com";
+            var url = "https://secure.cardcom.co.il/Interface/LowProfile.aspx?";
+
+            var fullurl = url + 'Operation=' + Operation + '&TerminalNumber=' + TerminalNumber + '&UserName=' + UserName + '&SumToBill=' + SumToBill + '&CoinID=' + CoinID + '&Language=' + Language + '&ProductName=' + ProductName + '&APILevel=' + APILevel + '&codepage=' + codepage + '&SuccessRedirectUrl=' + SuccessRedirectUrl + '&ErrorRedirectUrl=' + ErrorRedirectUrl;
+            window.location.href = fullurl;
+            callback(fullurl);
+            alert(fullurl);
+        }
+
+    </script>
+</head>
+<body>
+  
+  <button type="button" class="btn btn-info" onclick="postbill(document.getElementById('sum').value);">Pay</button>
+    
+</body>
+</html>
