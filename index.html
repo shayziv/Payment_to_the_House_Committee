@@ -12,6 +12,8 @@
     <script type="text/javascript">
 
         var jsonData;
+        var sumToDeal;
+        var ownerPay;
 
         // RefreshAjax
         $(document).ready(function () {
@@ -20,16 +22,14 @@
             $("#RefreshAjax").click(function () {
                 $.get("data.json", function (data, status) {
                     data = $.parseJSON(data);
-
                     jsonData = data;
 
-                    for (var i = 0; i < data.length; i++) {
-                        $("#tenant" + i).html('Apartment Number:' + data[i].ApartmentNumber + '<br /> ' + data[i].firstName + ' ' + data[i].lastName + '<br /> is a ' + data[i].Type + '<br /> floor:' + data[i].floor);
-
+                    for (var i = 0; i < (data.length); i++) {
+                        $("#tenant" + i).html('Apartment Number:' + data[i].ApartmentNumber + '<br /> ' + data[i].firstName + ' ' + data[i].lastName + '  is a ' + data[i].Type + '<br /> floor:' + data[i].floor);
                         if (data[i].balance < 0) {
-                            $("#tenant" + i).css("background-color", "red").append("<br><button id='" + (data[i].ApartmentNumber) + "' type='button'>Pay " + Math.abs(data[i].balance) + " ILS </button>");
+                            $("#tenant" + i).css("background-color", "red").append("<br /> <button id='" + (data[i].ApartmentNumber) + "' type='button' class= 'btn btn-default'> Need Pay " + Math.abs(data[i].balance) + " ILS </button>");
                         } else {
-                            $("#tenant" + i).css("background-color", "green");
+                            $("#tenant" + i).css("background-color", "green").append("<br /><br />");
                         }
                     }
 
@@ -38,26 +38,38 @@
             });
 
             // click event handler for tenant divs
-            $('#tenant0, #tenant1, #tenant2, #tenant3').click(function () {
+            $('.tenants').click(function () {
                 var selfId = this.id;
-
                 var i = selfId.substr(-1);
 
-                alert(jsonData[i].ApartmentNumber);
+                sumToDeal = (Math.abs(jsonData[i].balance));
+                ownerPay = jsonData[i].firstName + ' ' + jsonData[i].lastName;
+
             });
 
             // click event handler for pay button
-            $("#pay_btn").click(function () {
-                var bill = ($("#sum_input").val());
+            $(".tenants").click(function () {
+                // var bill = ($("#sum_input").val());
+                if (sumToDeal <= 0) { alert("no need pay"); return }
 
                 $.post("https://secure.cardcom.co.il/Interface/LowProfile.aspx", {
                     Operation: "1",
                     TerminalNumber: "1000",
                     UserName: "barak9611",
-                    SumToBill: bill,
+                    SumToBill: sumToDeal,
                     CoinID: "1",
                     Language: "en",
-                    ProductName: "item",
+                    ProductName: "House Committee",
+                    CardOwnerName: ownerPay,
+                    "InvoiceHeadOperation": "1" ,
+                    "InvoiceHead.CustName": ownerPay,
+                    "InvoiceHead.SendByEmail": false,
+                    "InvoiceHead.Language": "en",
+                    "InvoiceLines.Description":"House Committee",
+                    "InvoiceLines.Price":sumToDeal,
+                    "InvoiceLines.Quantity":1,
+                    "InvoiceLines.IsPriceIncludeVAT": true,
+                //  "InvoiceHead.Email":"shayz2012@gmail.com",
                     APILevel: "10",
                     codepage: "65001",
                     SuccessRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/SuccessPage.html",
@@ -72,9 +84,7 @@
                     // alert(lpc);
                     var GETindicator = "https://secure.cardcom.co.il/Interface/BillGoldGetLowProfileIndicator.aspx?terminalnumber=1000&username=barak9611&lowprofilecode=";
                     //   var a = GETindicator + lpc;
-
-                    //     alert(a);
-
+                    //   alert(a);
                     //   $("#divResult").html(Result);
                 });
             });
@@ -89,36 +99,44 @@
 <body>
     <div class="container-fluid">
         <div class="table-responsive">
-            <button id="RefreshAjax">Refresh Ajax</button>
+            <button id="RefreshAjax" class="btn btn-default" >Refresh Ajax</button>
             <div id="main" style="display:none">
-                <table class="table">
+                <table class="table  table-bordered btn-sm" >
                     <tr class="Info">
-                        <td id="tenant0">
+                        <td id="tenant0" class="tenants">
+                        </td>
+                        <td id="tenant1" class="tenants">
                         </td>
                     </tr>
                     <tr class="Info">
-                        <td id="tenant1">
+                        <td id="tenant2" class="tenants">
+                        </td>
+                        <td id="tenant3" class="tenants">
                         </td>
                     </tr>
                     <tr class="Info">
-                        <td id="tenant2">
+                        <td id="tenant4" class="tenants">
+                        </td>
+                        <td id="tenant5" class="tenants">
                         </td>
                     </tr>
                     <tr class="Info">
-                        <td id="tenant3">
+                        <td id="tenant6" class="tenants">
+                        </td>
+                        <td id="tenant7" class="tenants">
                         </td>
                     </tr>
                 </table>
                 <div class="showclass" id="showdiv">
                 </div>
-                <form>
+              <!--  <form>
                 <input id="sum_input" type="text">
                 <button id="pay_btn" type="button" class="btn btn-info">
                     Pay2
                 </button>
                 </form>
                 <div id="divResult">
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

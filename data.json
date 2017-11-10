@@ -4,38 +4,66 @@
     "seniority": 2,
     "Type": "tenant",
     "floor": "4",
-    "ApartmentNumber": 4,
-	"sumdebt": 50,
-	"debt" : true,
+    "ApartmentNumber": 7,
 	"balance" : -50
 }, {
     "firstName": "Nati",
     "lastName": "Shalom",
     "seniority": 1,
     "Type": "owner",
-    "floor": 3,
-    "ApartmentNumber": 3,
-	"sumdebt": 10,
-	"debt" : false,
+    "floor": 4,
+    "ApartmentNumber": 6,
 	"balance" : 0
 }, {
     "firstName": "Eti",
     "lastName": "Raz",
     "seniority": 1,
     "Type": "owner",
-    "floor": 2,
-    "ApartmentNumber": 2,
-	"sumdebt": 15,
-	"debt" : true,
+    "floor": 3,
+    "ApartmentNumber": 5,
 	"balance" : -20
 }, {
-    "firstName": "Noa",
+    "firstName": "Keren",
+    "lastName": "Noy",
+    "seniority": 1,
+    "Type": "owner",
+    "floor": 3,
+    "ApartmentNumber": 4,
+	"balance" : 0
+},{
+    "firstName": "Avi",
+    "lastName": "Zohar",
+    "seniority": 1,
+    "Type": "owner",
+    "floor": 2,
+    "ApartmentNumber": 3,
+	"balance" : 0	
+
+},{
+    "firstName": "Dana",
     "lastName": "Levi",
+    "seniority": 1,
+    "Type": "owner",
+    "floor": 2,
+    "ApartmentNumber": 2,
+	"balance" : 0
+
+},{
+    "firstName": "Omer",
+    "lastName": "Adam",
     "seniority": 1,
     "Type": "owner",
     "floor": 1,
     "ApartmentNumber": 1,
-	"sumdebt": 0,
-	"debt" : false,
 	"balance" : 0
+
+},{	
+    "firstName": "Rotem",
+    "lastName": "Shy",
+    "seniority": 1,
+    "Type": "owner",
+    "floor": 1,
+    "ApartmentNumber": 0,
+	"balance" : 0
+
 }]

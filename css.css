@@ -13,6 +13,7 @@ table td
     text-align: center;
     width:50%;
     height:auto;
+    cursor:pointer;
     
 }
 table tr
