@@ -11,108 +11,114 @@
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript">
 
+        var jsonData;
+
         // RefreshAjax
         $(document).ready(function () {
+
+            // click event handler for refresh button
             $("#RefreshAjax").click(function () {
                 $.get("data.json", function (data, status) {
-                    cache: false,
-                   data = $.parseJSON(data);
+                    data = $.parseJSON(data);
+
+                    jsonData = data;
+
                     for (var i = 0; i < data.length; i++) {
                         $("#tenant" + i).html('Apartment Number:' + data[i].ApartmentNumber + '<br /> ' + data[i].firstName + ' ' + data[i].lastName + '<br /> is a ' + data[i].Type + '<br /> floor:' + data[i].floor);
-                        if (data[i].debt == true) {
-                            $("#tenant" + i).css("background-color", "red").append("<br><button id=" + (data[i].ApartmentNumber) + " type='button'>Pay " + data[i].sumdebt + " ILS </button>");
-                        }
-                        else {
+
+                        if (data[i].balance < 0) {
+                            $("#tenant" + i).css("background-color", "red").append("<br><button id='" + (data[i].ApartmentNumber) + "' type='button'>Pay " + Math.abs(data[i].balance) + " ILS </button>");
+                        } else {
                             $("#tenant" + i).css("background-color", "green");
                         }
-                        $('#tenant' + i).click(function () {
-                            alert("1");
-                            alert(data[i].ApartmentNumber);
-                            // window.location.replace("http://stackoverflow.com");
-                            //  window.location.href = "https://secure.cardcom.co.il/External/ExternalClearingPage3.aspx?TerminalNumber=1001&Languages=en&description=Payment_to_the_House_Committee&sum=2&PageTxtDesc=0&InvCreateInvoice=1";
-                        });
                     }
+
+                    $("#main").show();
                 });
             });
-        });
 
-        // PAY button ajax post
-        $(document).ready(function () {
-            $("#button").click(function () {
-                var bill = ($("#sum_input").val());
-                $.post("https://secure.cardcom.co.il/Interface/LowProfile.aspx",
-            {
-                Operation: "1",
-                TerminalNumber: "1000",
-                UserName: "barak9611",
-                SumToBill: bill,
-                CoinID: "1",
-                Language: "en",
-                ProductName: "item",
-                APILevel: "10",
-                codepage: "65001",
-                SuccessRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/SuccessPage.html",
-                ErrorRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/ErrorPage.html",
-                IndicatorUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/IndicatorUrl.html"
-            },
-            function (data) {
-                var Result = Decoder(data);
-                var urlResult = Result.slice(86, 204);
-                window.location.href = urlResult;
+            // click event handler for tenant divs
+            $('#tenant0, #tenant1, #tenant2, #tenant3').click(function () {
+                var selfId = this.id;
 
-                var lpc = Result.slice(45, 81);
-                // alert(lpc);
-                var GETindicator = "https://secure.cardcom.co.il/Interface/BillGoldGetLowProfileIndicator.aspx?terminalnumber=1000&username=barak9611&lowprofilecode=";
-                //   var a = GETindicator + lpc;
+                var i = selfId.substr(-1);
 
-                //     alert(a);
-
-                //   $("#divResult").html(Result);
-              });
+                alert(jsonData[i].ApartmentNumber);
             });
-        });
 
-        function Decoder(DataUrl) {
-            var DataUrl;
-            var uri_dec = decodeURIComponent(DataUrl);
-            return uri_dec;
-        }
+            // click event handler for pay button
+            $("#pay_btn").click(function () {
+                var bill = ($("#sum_input").val());
+
+                $.post("https://secure.cardcom.co.il/Interface/LowProfile.aspx", {
+                    Operation: "1",
+                    TerminalNumber: "1000",
+                    UserName: "barak9611",
+                    SumToBill: bill,
+                    CoinID: "1",
+                    Language: "en",
+                    ProductName: "item",
+                    APILevel: "10",
+                    codepage: "65001",
+                    SuccessRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/SuccessPage.html",
+                    ErrorRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/ErrorPage.html",
+                    IndicatorUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/IndicatorUrl.php"
+                }, function (data) {
+                    var Result = decodeURIComponent(data);
+                    var urlResult = Result.slice(86, 204);
+                    window.location.href = urlResult;
+
+                    var lpc = Result.slice(45, 81);
+                    // alert(lpc);
+                    var GETindicator = "https://secure.cardcom.co.il/Interface/BillGoldGetLowProfileIndicator.aspx?terminalnumber=1000&username=barak9611&lowprofilecode=";
+                    //   var a = GETindicator + lpc;
+
+                    //     alert(a);
+
+                    //   $("#divResult").html(Result);
+                });
+            });
+
+
+
+
+        });
 
     </script>
 </head>
 <body>
     <div class="container-fluid">
         <div class="table-responsive">
-            <button id="RefreshAjax">
-                Refresh Ajax</button>
-            <!--      <table id="mytable" class="tblStyle">-->
-            <table class="table">
-                <tr class="Info">
-                    <td id="tenant0">
-                    </td>
-                </tr>
-                <tr class="Info">
-                    <td id="tenant1">
-                    </td>
-                </tr>
-                <tr class="Info">
-                    <td id="tenant2">
-                    </td>
-                </tr>
-                <tr class="Info">
-                    <td id="tenant3">
-                    </td>
-                </tr>
-            </table>
-            <div class="showclass" id="showdiv">
-            </div>
-            <form>
-            <input id="sum_input" type="text">
-            <button id="button" type="button" class="btn btn-info">
-                Pay2
-            </button>
-            </form>
-            <div id="divResult">
+            <button id="RefreshAjax">Refresh Ajax</button>
+            <div id="main" style="display:none">
+                <table class="table">
+                    <tr class="Info">
+                        <td id="tenant0">
+                        </td>
+                    </tr>
+                    <tr class="Info">
+                        <td id="tenant1">
+                        </td>
+                    </tr>
+                    <tr class="Info">
+                        <td id="tenant2">
+                        </td>
+                    </tr>
+                    <tr class="Info">
+                        <td id="tenant3">
+                        </td>
+                    </tr>
+                </table>
+                <div class="showclass" id="showdiv">
+                </div>
+                <form>
+                <input id="sum_input" type="text">
+                <button id="pay_btn" type="button" class="btn btn-info">
+                    Pay2
+                </button>
+                </form>
+                <div id="divResult">
+                </div>
             </div>
         </div>
     </div>

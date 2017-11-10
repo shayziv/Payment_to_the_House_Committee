@@ -6,8 +6,8 @@
     "floor": "4",
     "ApartmentNumber": 4,
 	"sumdebt": 50,
-	"debt" : true
-	
+	"debt" : true,
+	"balance" : -50
 }, {
     "firstName": "Nati",
     "lastName": "Shalom",
@@ -16,7 +16,8 @@
     "floor": 3,
     "ApartmentNumber": 3,
 	"sumdebt": 10,
-	"debt" : false
+	"debt" : false,
+	"balance" : 0
 }, {
     "firstName": "Eti",
     "lastName": "Raz",
@@ -25,7 +26,8 @@
     "floor": 2,
     "ApartmentNumber": 2,
 	"sumdebt": 15,
-	"debt" : true
+	"debt" : true,
+	"balance" : -20
 }, {
     "firstName": "Noa",
     "lastName": "Levi",
@@ -34,5 +36,6 @@
     "floor": 1,
     "ApartmentNumber": 1,
 	"sumdebt": 0,
-	"debt" : false
+	"debt" : false,
+	"balance" : 0
 }]
