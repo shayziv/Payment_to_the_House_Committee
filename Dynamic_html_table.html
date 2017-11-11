@@ -1,0 +1,50 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<style>
+	table{
+		width:500px;
+		height:500px;
+	}
+	table td{
+		padding:10px;
+		margin:10px;
+		border:1px solid #ccc;
+	}
+</style>
+
+<script type="text/javascript">
+
+    // Craet DynamicTable from Floor and Tenants num
+    $(document).ready(function () {
+        $("#CreateTable").click(function () {
+            var DynamicTable = $('<table></table>').attr({ id: "DynamTable", class: "table table-bordered btn-sm" });
+            var floor = ($("#floorNum").val());
+            var TenantsFloor = ($("#TenantsFloors").val());
+            var tr = [];
+            var k = 0;
+
+            for (var i = 0; i < floor; i++) {
+                var row = $('<tr></tr>').attr({ class: ["Info"].join(' ') }).appendTo(DynamicTable);
+                for (var j = 0; j < TenantsFloor; j++) {
+                    $('<td></td>').text("text1").appendTo(row).addClass("tenant" + (k++)).addClass("tenants");
+                }
+            }
+            DynamicTable.appendTo("#box");
+        });
+    });
+
+</script>
+</head>
+
+Floor num:<input type="text" id="floorNum" />
+Tenants on the floor:<input type="text" id="TenantsFloors" />
+
+<input type="button" id="CreateTable" value="CreateTable" />
+
+<div id="box"></div>
+
+</body>
+</html>

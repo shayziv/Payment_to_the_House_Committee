@@ -1,25 +1,18 @@
 
-
-table th
+table tr
 {
-    border-bottom: 1px solid black;
-    text-align: center;
-    width:50%;
-    height:auto;
+     background-color:Green; 
 }
-table td
+
+.tenants
 {
     border-bottom: 2px solid black;
     text-align: center;
     width:50%;
     height:auto;
-    cursor:pointer;
-    
+    cursor:pointer;    
 }
-table tr
-{
-     background-color:Green; 
-}
+
 
 #custom-bootstrap-menu.navbar-default .navbar-brand {
     color: rgba(0, 0, 0, 0.9);

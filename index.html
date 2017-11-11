@@ -4,16 +4,37 @@
     <!--   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Payment to the House Committee</title>
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript">
 
         var jsonData;
         var sumToDeal;
         var ownerPay;
+
+        // Create DynamicTable from Floor and Tenants num
+        $(document).ready(function () {
+            $("#CreateTable").click(function () {
+                var DynamicTable = $('<table></table>').attr({ id: "DynamTable", class: "table table-bordered btn-sm" });
+                var floor = ($("#floorNum").val());
+                var TenantsFloor = ($("#TenantsFloors").val());
+                var tr = [];
+                var k = 0;
+
+                for (var i = 0; i < floor; i++) {
+                    var row = $('<tr></tr>').attr({ class: ["Info"].join(' ') }).appendTo(DynamicTable);
+                    for (var j = 0; j < TenantsFloor; j++) {
+                        $('<td></td>').text("text1").appendTo(row).addClass("tenant" + (k++)).addClass("tenants");
+                    }
+                }
+                DynamicTable.appendTo("#box");
+            });
+        });
+
 
         // RefreshAjax
         $(document).ready(function () {
@@ -119,8 +140,18 @@
 
     <div class="container-fluid">
         <div class="table-responsive">
+            
+
+            Floor num:<input type="text" id="floorNum" />
+            Tenants on the floor:<input type="text" id="TenantsFloors" />
+
+            <input type="button" id="CreateTable" value="CreateTable" class="btn btn-default" />
             <button id="RefreshAjax" class="btn btn-default" >Refresh Ajax</button>
+
+            <div id="box"></div>
             <div id="main" style="display:none">
+
+
                 <table class="table  table-bordered btn-sm" >
                     <tr class="Info">
                         <td id="tenant0" class="tenants">
@@ -147,16 +178,12 @@
                         </td>
                     </tr>
                 </table>
-                <div class="showclass" id="showdiv">
-                </div>
-              <!--  <form>
+
+          <!--  <form>
                 <input id="sum_input" type="text">
-                <button id="pay_btn" type="button" class="btn btn-info">
-                    Pay2
-                </button>
+                <button id="pay_btn" type="button" class="btn btn-info">Pay2 </button>
                 </form>
-                <div id="divResult">
-                </div>-->
+                <div id="divResult"></div>-->
             </div>
         </div>
     </div>
