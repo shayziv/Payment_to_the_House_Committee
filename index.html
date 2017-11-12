@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css.css">
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <script type="text/javascript">
 
         var jsonData;
@@ -44,33 +46,38 @@
                 $.get("data.json", function (data, status) {
                     data = $.parseJSON(data);
                     jsonData = data;
+                    var totalBal = 0;
 
                     for (var i = 0; i < (data.length); i++) {
                         $("#tenant" + i).html('Apartment Number:' + data[i].ApartmentNumber + '<br /> ' + data[i].firstName + ' ' + data[i].lastName + '  is a ' + data[i].Type + '<br /> floor:' + data[i].floor);
+                        totalBal += (data[i].balance);
+
                         if (data[i].balance < 0) {
-                            $("#tenant" + i).css("background-color", "red").append("<br /> <button id='" + (data[i].ApartmentNumber) + "' type='button' class= 'btn btn-default'> Need Pay " + Math.abs(data[i].balance) + " ILS </button>");
+                            $("#tenant" + i).css("background-color", "#EA4335").append("<br /> <button id='" + (data[i].ApartmentNumber) + "' type='button' class= 'btn btn-default'> Need Pay " + Math.abs(data[i].balance) + " ILS </button>");
                         } else {
-                            $("#tenant" + i).css("background-color", "green").append("<br /><br />");
+                            $("#tenant" + i).css("background-color", "#4CAF50").append("<br /><br />");
                         }
+
                     }
+
+                    $("#totalBalance").html(totalBal);
 
                     $("#main").show();
                 });
             });
 
-            // click event handler for tenant divs
-            $('.tenants').click(function () {
-                var selfId = this.id;
-                var i = selfId.substr(-1);
 
-                sumToDeal = (Math.abs(jsonData[i].balance));
-                ownerPay = jsonData[i].firstName + ' ' + jsonData[i].lastName;
-
-            });
 
             // click event handler for pay button
             $(".tenants").click(function () {
-                // var bill = ($("#sum_input").val());
+                var selfId = this.id;
+                var i = selfId.substr(-1);
+                var ApartmentNumber;
+
+                sumToDeal = (Math.abs(jsonData[i].balance));
+                ownerPay = jsonData[i].firstName + ' ' + jsonData[i].lastName;
+                ApartmentNumber =jsonData[i].ApartmentNumber;
+
                 if (sumToDeal <= 0) { alert("no need pay"); return }
 
                 $.post("https://secure.cardcom.co.il/Interface/LowProfile.aspx", {
@@ -82,15 +89,16 @@
                     Language: "en",
                     ProductName: "House Committee",
                     CardOwnerName: ownerPay,
-                    "InvoiceHeadOperation": "1" ,
+                    "InvoiceHeadOperation": "1",
                     "InvoiceHead.CustName": ownerPay,
                     "InvoiceHead.SendByEmail": false,
                     "InvoiceHead.Language": "en",
-                    "InvoiceLines.Description":"House Committee",
-                    "InvoiceLines.Price":sumToDeal,
-                    "InvoiceLines.Quantity":1,
+                    "InvoiceLines.Description": "House Committee",
+                    "InvoiceLines.Price": sumToDeal,
+                    "InvoiceLines.Quantity": 1,
                     "InvoiceLines.IsPriceIncludeVAT": true,
-                //  "InvoiceHead.Email":"shayz2012@gmail.com",
+                     ReturnValue :ApartmentNumber,
+                    //  "InvoiceHead.Email":"shayz2012@gmail.com",
                     APILevel: "10",
                     codepage: "65001",
                     SuccessRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/SuccessPage.html",
@@ -101,17 +109,14 @@
                     var urlResult = Result.slice(86, 204);
                     window.location.href = urlResult;
 
-                    var lpc = Result.slice(45, 81);
+                    //  var lpc = Result.slice(45, 81);
                     // alert(lpc);
-                    var GETindicator = "https://secure.cardcom.co.il/Interface/BillGoldGetLowProfileIndicator.aspx?terminalnumber=1000&username=barak9611&lowprofilecode=";
+                    //  var GETindicator = "https://secure.cardcom.co.il/Interface/BillGoldGetLowProfileIndicator.aspx?terminalnumber=1000&username=barak9611&lowprofilecode=";
                     //   var a = GETindicator + lpc;
                     //   alert(a);
                     //   $("#divResult").html(Result);
                 });
             });
-
-
-
 
         });
 
@@ -129,7 +134,7 @@
             <ul class="nav navbar-nav navbar-left">
                 <li> <a href="about.html">About</a>
                 </li>
-                <li><a href="index.html" class="active">The Apapplication</a>
+                <li><a href="index.html" class="active">The Application</a>
                 </li>
             </ul>
         </div>
@@ -140,13 +145,13 @@
 
     <div class="container-fluid">
         <div class="table-responsive">
-            
-
+    
             Floor num:<input type="text" id="floorNum" />
             Tenants on the floor:<input type="text" id="TenantsFloors" />
 
             <input type="button" id="CreateTable" value="CreateTable" class="btn btn-default" />
             <button id="RefreshAjax" class="btn btn-default" >Refresh Ajax</button>
+        
 
             <div id="box"></div>
             <div id="main" style="display:none">
@@ -179,6 +184,19 @@
                     </tr>
                 </table>
 
+                <p > </p>
+
+                <table class="Info">
+                    <tr>
+                        <td>
+                        Total Balance :  
+                        </td>
+                        <td id="totalBalance">
+                        </td>
+                    </tr>
+                </table>
+                <b></b>
+                
           <!--  <form>
                 <input id="sum_input" type="text">
                 <button id="pay_btn" type="button" class="btn btn-info">Pay2 </button>

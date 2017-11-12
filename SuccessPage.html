@@ -7,12 +7,19 @@
 
     <script type="text/javascript">
 
-//  https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/SuccessPage.html?terminalnumber=1000&lowprofilecode=e6777e8a-9114-4891-a39b-0d3ce5a47d4c&ResponeCode=0&Operation=1&ResponseCode=0&Status=0 
+
+//          var url  = window.location.href;
+//          var urlResult = Result.slice(119, 204);
+//          alert(urlResult);
 
 
-          var url  = window.location.href;
-          var urlResult = Result.slice(119, 204);
-          alert(urlResult);
+          var url_string = window.location.href ; //window.location.href
+          var url = new URL(url_string);
+          var c = url.searchParams.get("ResponseCode");
+         
+          
+            
+          
 
 
     </script>
@@ -22,8 +29,9 @@
  <div class="container-fluid"> 
   <div class="jumbotron">
     <h1>העסקה בוצעה בהצלחה</h1> 
-
-        <a href="https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/IndicatorUrl.html" >IndicatorUrl</a>
+    <br>
+        <h3>חזרה לדף הבית</h3>
+        <a href="https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/index.html" >IndicatorUrl</a>
 
     </div></div>
 </body>

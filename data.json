@@ -29,7 +29,7 @@
     "Type": "owner",
     "floor": 3,
     "ApartmentNumber": 4,
-	"balance" : 0
+	"balance" : -10
 },{
     "firstName": "Avi",
     "lastName": "Zohar",
