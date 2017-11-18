@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css.css">
 
-    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
-    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"
+     integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
 
+        // global vars
         var jsonData;
         var sumToDeal;
         var ownerPay;
@@ -51,7 +52,6 @@
                     for (var i = 0; i < (data.length); i++) {
                         $("#tenant" + i).html('Apartment Number:' + data[i].ApartmentNumber + '<br /> ' + data[i].firstName + ' ' + data[i].lastName + '  is a ' + data[i].Type + '<br /> floor:' + data[i].floor);
                         totalBal += (data[i].balance);
-
                         if (data[i].balance < 0) {
                             $("#tenant" + i).css("background-color", "#EA4335").append("<br /> <button id='" + (data[i].ApartmentNumber) + "' type='button' class= 'btn btn-default'> Need Pay " + Math.abs(data[i].balance) + " ILS </button>");
                         } else {
@@ -68,62 +68,73 @@
 
 
 
-            // click event handler for pay button
+            // click event handler for pay button - Ajax Post Request
             $(".tenants").click(function () {
                 var selfId = this.id;
                 var i = selfId.substr(-1);
                 var ApartmentNumber;
 
-                sumToDeal = (Math.abs(jsonData[i].balance));
+                sumToDeal = (jsonData[i].balance);
                 ownerPay = jsonData[i].firstName + ' ' + jsonData[i].lastName;
-                ApartmentNumber =jsonData[i].ApartmentNumber;
+                ApartmentNumber = jsonData[i].ApartmentNumber;
 
-                if (sumToDeal <= 0) { alert("no need pay"); return }
+                if (sumToDeal >= 0) {
+                    alert("no need pay");
+                    return;
+                } 
+                else
+                {
+                    sumToDeal = (Math.abs(jsonData[i].balance));
+ 
+                    $.post("https://secure.cardcom.co.il/Interface/LowProfile.aspx", {
+                        Operation: "1",
+                        TerminalNumber: "1000",
+                        UserName: "barak9611",
+                        SumToBill: sumToDeal,
+                        CoinID: "1",
+                        Language: "en",
+                        ProductName: "House Committee",
+                        CardOwnerName: ownerPay,
+                        "InvoiceHeadOperation": "1",
+                        "InvoiceHead.CustName": ownerPay,
+                        "InvoiceHead.SendByEmail": false,
+                        "InvoiceHead.Language": "en",
+                        "InvoiceLines.Description": "House Committee for Apartment Number " + ApartmentNumber + "",
+                        "InvoiceLines.Price": sumToDeal,
+                        "InvoiceLines.Quantity": 1,
+                        "InvoiceLines.IsPriceIncludeVAT": true,
+                        ReturnValue: ApartmentNumber,
+                        //  "InvoiceHead.Email":"shayz2012@gmail.com",
+                        APILevel: "10",
+                        codepage: "65001",
+                        SuccessRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/SuccessPage.html",
+                        ErrorRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/ErrorPage.html",
+                        IndicatorUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/IndicatorUrl.php",
+                        CancelUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/index.html"
+                    }, function (data) {
+                        var Result = decodeURIComponent(data);
+                        var urlResult = Result.slice(86, 204);
+                        window.location.href = urlResult;
 
-                $.post("https://secure.cardcom.co.il/Interface/LowProfile.aspx", {
-                    Operation: "1",
-                    TerminalNumber: "1000",
-                    UserName: "barak9611",
-                    SumToBill: sumToDeal,
-                    CoinID: "1",
-                    Language: "en",
-                    ProductName: "House Committee",
-                    CardOwnerName: ownerPay,
-                    "InvoiceHeadOperation": "1",
-                    "InvoiceHead.CustName": ownerPay,
-                    "InvoiceHead.SendByEmail": false,
-                    "InvoiceHead.Language": "en",
-                    "InvoiceLines.Description": "House Committee",
-                    "InvoiceLines.Price": sumToDeal,
-                    "InvoiceLines.Quantity": 1,
-                    "InvoiceLines.IsPriceIncludeVAT": true,
-                     ReturnValue :ApartmentNumber,
-                    //  "InvoiceHead.Email":"shayz2012@gmail.com",
-                    APILevel: "10",
-                    codepage: "65001",
-                    SuccessRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/SuccessPage.html",
-                    ErrorRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/ErrorPage.html",
-                    IndicatorUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/IndicatorUrl.php"
-                }, function (data) {
-                    var Result = decodeURIComponent(data);
-                    var urlResult = Result.slice(86, 204);
-                    window.location.href = urlResult;
-
-                    //  var lpc = Result.slice(45, 81);
-                    // alert(lpc);
-                    //  var GETindicator = "https://secure.cardcom.co.il/Interface/BillGoldGetLowProfileIndicator.aspx?terminalnumber=1000&username=barak9611&lowprofilecode=";
-                    //   var a = GETindicator + lpc;
-                    //   alert(a);
-                    //   $("#divResult").html(Result);
-                });
+                        //  var lpc = Result.slice(45, 81);
+                        // alert(lpc);
+                        //  var GETindicator = "https://secure.cardcom.co.il/Interface/BillGoldGetLowProfileIndicator.aspx?terminalnumber=1000&username=barak9611&lowprofilecode=";
+                        //   var a = GETindicator + lpc;
+                        //   alert(a);
+                        //   $("#divResult").html(Result);
+                    });
+                } 
             });
+            
 
         });
-
+       
     </script>
 </head>
 <body>
 
+
+ <!-- bootstrap navbar-->
 <div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
     <div class="container-fluid">
         <div class="navbar-header"><a class="navbar-brand" href="#">Payment House Committee</a>
@@ -142,7 +153,7 @@
 </div>
 
 
-
+    <!--buttons-->
     <div class="container-fluid">
         <div class="table-responsive">
     
@@ -152,11 +163,11 @@
             <input type="button" id="CreateTable" value="CreateTable" class="btn btn-default" />
             <button id="RefreshAjax" class="btn btn-default" >Refresh Ajax</button>
         
-
             <div id="box"></div>
             <div id="main" style="display:none">
 
 
+         <!--   bootstrap table-->
                 <table class="table  table-bordered btn-sm" >
                     <tr class="Info">
                         <td id="tenant0" class="tenants">
@@ -195,7 +206,6 @@
                         </td>
                     </tr>
                 </table>
-                <b></b>
                 
           <!--  <form>
                 <input id="sum_input" type="text">
