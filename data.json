@@ -1,1 +1,74 @@
-[{"ApartmentNumber":7,"firstName":"Eli","lastName":"Chen","seniority":2,"Type":"tenant","floor":"4","balance":0},{"ApartmentNumber":6,"firstName":"Nati","lastName":"Shalom","seniority":1,"Type":"owner","floor":4,"balance":0},{"ApartmentNumber":5,"firstName":"Eti","lastName":"Raz","seniority":1,"Type":"owner","floor":3,"balance":0},{"ApartmentNumber":4,"firstName":"israel","lastName":"choen","seniority":22,"Type":"tenant","floor":3,"balance":0},{"ApartmentNumber":3,"firstName":"Avi","lastName":"Zohar","seniority":1,"Type":"owner","floor":2,"balance":-15},{"ApartmentNumber":2,"firstName":"Rotem","lastName":"levi","seniority":1,"Type":"owner","floor":2,"balance":0},{"ApartmentNumber":0,"firstName":"avi","lastName":"lev","seniority":1,"Type":"owner","floor":1,"balance":-15},{"ApartmentNumber":1,"firstName":"dana","lastName":"israeli","seniority":2,"Type":"tenant","floor":1,"balance":0}]
+[
+	{
+		"ApartmentNumber": 7,
+		"firstName": "Eli",
+		"lastName": "Chen",
+		"seniority": 2,
+		"Type": "tenant",
+		"floor": "4",
+		"balance": -10
+	},
+	{
+		"ApartmentNumber": 6,
+		"firstName": "Nati",
+		"lastName": "Shalom",
+		"seniority": 1,
+		"Type": "owner",
+		"floor": 4,
+		"balance": 0
+	},
+	{
+		"ApartmentNumber": 5,
+		"firstName": "Eti",
+		"lastName": "Raz",
+		"seniority": 1,
+		"Type": "owner",
+		"floor": 3,
+		"balance": 0
+	},
+	{
+		"ApartmentNumber": 4,
+		"firstName": "israel",
+		"lastName": "choen",
+		"seniority": 22,
+		"Type": "tenant",
+		"floor": 3,
+		"balance": 0
+	},
+	{
+		"ApartmentNumber": 3,
+		"firstName": "Avi",
+		"lastName": "Zohar",
+		"seniority": 1,
+		"Type": "owner",
+		"floor": 2,
+		"balance": -15
+	},
+	{
+		"ApartmentNumber": 2,
+		"firstName": "Rotem",
+		"lastName": "levi",
+		"seniority": 1,
+		"Type": "owner",
+		"floor": 2,
+		"balance": 0
+	},
+	{
+		"ApartmentNumber": 1,
+		"firstName": "avi",
+		"lastName": "lev",
+		"seniority": 1,
+		"Type": "owner",
+		"floor": 1,
+		"balance": -15
+	},
+	{
+		"ApartmentNumber": 0,
+		"firstName": "dana",
+		"lastName": "israeli",
+		"seniority": 2,
+		"Type": "tenant",
+		"floor": 1,
+		"balance": 0
+	}
+]
