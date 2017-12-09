@@ -15,38 +15,65 @@
 
 <div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
     <div class="container-fluid">
-        <div class="navbar-header"><a class="navbar-brand" href="#">Payment House Committee</a>
+        <div class="navbar-header"><a class="navbar-brand" href="index.html">Payment House Committee</a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
             </button>
         </div>
         <div class="collapse navbar-collapse navbar-menubuilder">
             <ul class="nav navbar-nav navbar-left">
+                <li><a href="admin.html">Admin</a>
+                </li>
                 <li><a href="about.html" class="active">About</a>
                 </li>
-                <li><a href="index.html">The Apapplication</a>
+                <li><a href="index.html">The Application</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
 
-<div class="container-fluid" dir="rtl" >
+<div class="container" dir="rtl" >
     <p>
   <b> תאור פרוייקט :    </b>   <br>
 מצורף פרוייקט אינטרנטי לתשלום ועד-בית בבנין דירות.<br>
 כל תא בטבלה מייצג דייר עם הפרטים אודות הדייר שמתקבל מ JSON.<br>
 כאשר לדייר יש חוב ל ועד-בית התא בטבלה נצבע בצבע אדום עם כפתור "לשלם" והסכום לתשלום.<br>
-בלחיצה על כפתור "לשלם" הדייר מועבר לדף תשלום עם הסכום לתשלום<br>
-לאחר הרכישה הלקוח מקבל לדואר אלקטורני חשבונית על העסקה<br>
+בלחיצה על כפתור "לשלם" הדייר מועבר לדף תשלום עם הסכום לתשלום ופרמטרים נוספים.<br>
+הסליקה מתבצעת במסוף טסטים שמדמה עסקת אשראי עם שליחת חשבונית פיקטיבית - ניתן לנסות.<br>
+לאחר התשלום בהצלחה הדייר מקבל לדואר אלקטורני חשבונית על העסקה.<br>
+בחזרה לדף הבית - התא נצבע בירוק ומתעדכן החוב הכללי של הבניין.<br>
+דף אדמין - מאפשר הוספה והסרה של דייר ( מעדכן את ה JSON  ).<br>
 <b><br>
 הפרוייקט כולל שימוש בטכנולוגיות :<br>
 </b>
 Html , Css , Javascript , Jquery , Bootstrap<br>
-Ajax ,  Read form json , Rest API<br>
+Ajax , Read form json , Rest API , Php<br>
+<br>
+
+    </p>
+
+    <p dir="ltr">
+        
+    <b>    Project description:</b>  <br>
+Attached is an internet project for the payment of a house committee in an apartment building.<br>
+Each cell in the table represents a tenant with details about the tenant obtained from JSON<br>
+When the tenant has a debt to the House Committee, the cell in the table is colored in red with a "pay" button and the amount payable.<br>
+By clicking the "pay" button, the tenant is transferred to a payment page with the payment amount and other parameters.<br>
+Clearing is done at a test terminal that simulates a credit transaction by sending a fictitious invoice - you can try.<br>
+After successful payment the tenant receives an electoral post invoice for the transaction.<br>
+Back to home page - The cell is painted green and updated the general debt of the building.<br>
+Page Admin - Allows adding and removing a tenant (updating the JSON).<br>
+<br><br>
+<b> The project includes the use of technologies:</b> <br>
+Html, Css, Javascript, Jquery, Bootstrap<br>
+Ajax, Read form json, Rest API, Php<br>
+
 <br>
     
     
     </p>
+
+
 
 </div>
 

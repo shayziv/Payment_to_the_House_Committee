@@ -20,23 +20,23 @@
         var ownerPay;
 
         // Create DynamicTable from Floor and Tenants num
-        $(document).ready(function () {
-            $("#CreateTable").click(function () {
-                var DynamicTable = $('<table></table>').attr({ id: "DynamTable", class: "table table-bordered btn-sm" });
-                var floor = ($("#floorNum").val());
-                var TenantsFloor = ($("#TenantsFloors").val());
-                var tr = [];
-                var k = 0;
+//        $(document).ready(function () {
+//            $("#CreateTable").click(function () {
+//                var DynamicTable = $('<table></table>').attr({ id: "DynamTable", class: "table table-bordered btn-sm" });
+//                var floor = ($("#floorNum").val());
+//                var TenantsFloor = ($("#TenantsFloors").val());
+//                var tr = [];
+//                var k = 0;
 
-                for (var i = 0; i < floor; i++) {
-                    var row = $('<tr></tr>').attr({ class: ["Info"].join(' ') }).appendTo(DynamicTable);
-                    for (var j = 0; j < TenantsFloor; j++) {
-                        $('<td></td>').text("text1").appendTo(row).addClass("tenant" + (k++)).addClass("tenants");
-                    }
-                }
-                DynamicTable.appendTo("#box");
-            });
-        });
+//                for (var i = 0; i < floor; i++) {
+//                    var row = $('<tr></tr>').attr({ class: ["Info"].join(' ') }).appendTo(DynamicTable);
+//                    for (var j = 0; j < TenantsFloor; j++) {
+//                        $('<td></td>').text("text1").appendTo(row).addClass("tenant" + (k++)).addClass("tenants");
+//                    }
+//                }
+//                DynamicTable.appendTo("#box");
+//            });
+//        });
 
 
         // RefreshAjax
@@ -44,8 +44,9 @@
 
             // click event handler for refresh button
             $("#RefreshAjax").click(function () {
-                $.get("data.json", function (data, status) {
-                    data = $.parseJSON(data);
+                $.get("data.json?a=" + Math.random(), function (data, status) {
+                    //jQuery.support.cors = true;
+                    // data = $.parseJSON(data);
                     jsonData = data;
                     var totalBal = 0;
 
@@ -58,13 +59,15 @@
                             $("#tenant" + i).css("background-color", "#4CAF50").append("<br /><br />");
                         }
 
-                    }
+                    } 
 
-                    $("#totalBalance").html(totalBal);
+                    $("#totalBalance").html(": " + totalBal);
 
                     $("#main").show();
                 });
             });
+
+
 
 
 
@@ -81,11 +84,10 @@
                 if (sumToDeal >= 0) {
                     alert("no need pay");
                     return;
-                } 
-                else
-                {
+                }
+                else {
                     sumToDeal = (Math.abs(jsonData[i].balance));
- 
+
                     $.post("https://secure.cardcom.co.il/Interface/LowProfile.aspx", {
                         Operation: "1",
                         TerminalNumber: "1000",
@@ -95,9 +97,10 @@
                         Language: "en",
                         ProductName: "House Committee",
                         CardOwnerName: ownerPay,
+                        ShowInvoiceHead : true ,
                         "InvoiceHeadOperation": "1",
                         "InvoiceHead.CustName": ownerPay,
-                        "InvoiceHead.SendByEmail": false,
+                        "InvoiceHead.SendByEmail": true,
                         "InvoiceHead.Language": "en",
                         "InvoiceLines.Description": "House Committee for Apartment Number " + ApartmentNumber + "",
                         "InvoiceLines.Price": sumToDeal,
@@ -107,7 +110,8 @@
                         //  "InvoiceHead.Email":"shayz2012@gmail.com",
                         APILevel: "10",
                         codepage: "65001",
-                        SuccessRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/SuccessPage.html",
+                        //    SuccessRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/SuccessPage.html",
+                        SuccessRedirectUrl: "http://localhost/Payment_to_the_House_Committee/V4.1/SuccessPage.html",
                         ErrorRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/ErrorPage.html",
                         IndicatorUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/IndicatorUrl.php",
                         CancelUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/index.html"
@@ -123,9 +127,9 @@
                         //   alert(a);
                         //   $("#divResult").html(Result);
                     });
-                } 
+                }
             });
-            
+
 
         });
        
@@ -137,12 +141,14 @@
  <!-- bootstrap navbar-->
 <div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
     <div class="container-fluid">
-        <div class="navbar-header"><a class="navbar-brand" href="#">Payment House Committee</a>
+        <div class="navbar-header"><a class="navbar-brand" href="index.html">Payment House Committee</a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
             </button>
         </div>
         <div class="collapse navbar-collapse navbar-menubuilder">
             <ul class="nav navbar-nav navbar-left">
+                <li><a href="admin.html">Admin</a>
+                </li>
                 <li> <a href="about.html">About</a>
                 </li>
                 <li><a href="index.html" class="active">The Application</a>
@@ -154,15 +160,19 @@
 
 
     <!--buttons-->
-    <div class="container-fluid">
-        <div class="table-responsive">
-    
-            Floor num:<input type="text" id="floorNum" />
-            Tenants on the floor:<input type="text" id="TenantsFloors" />
+    <div class="container">
+        <div class="table-responsive tblgreen">
 
+            <button id="RefreshAjax" class="btn btn-success" >Refresh Ajax</button>
+            <br>
+            <!-- 
             <input type="button" id="CreateTable" value="CreateTable" class="btn btn-default" />
-            <button id="RefreshAjax" class="btn btn-default" >Refresh Ajax</button>
-        
+
+            <input type="text"   id="floorNum" placeholder="Floor num" />
+            <input type="text"  id="TenantsFloors" placeholder="Tenants on the floor" />
+           -->
+            <br>
+  
             <div id="box"></div>
             <div id="main" style="display:none">
 
@@ -200,7 +210,7 @@
                 <table class="Info">
                     <tr>
                         <td>
-                        Total Balance :  
+                        Total Balance Of The Building  
                         </td>
                         <td id="totalBalance">
                         </td>
@@ -215,5 +225,6 @@
             </div>
         </div>
     </div>
+    
 </body>
 </html>

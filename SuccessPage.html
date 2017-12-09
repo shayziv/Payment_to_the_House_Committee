@@ -3,36 +3,121 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Success Page</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css.css">
 
-    <script type="text/javascript">
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"
+     integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <script type="text/javascript">
 
 //          var url  = window.location.href;
 //          var urlResult = Result.slice(119, 204);
 //          alert(urlResult);
+        var c = "";
+
+        $(document).ready(function () {
+            var url_string = window.location.href; //window.location.href
+            var url = new URL(url_string);
+            lpc = url.searchParams.get("lowprofilecode");
 
 
-          var url_string = window.location.href ; //window.location.href
-          var url = new URL(url_string);
-          var c = url.searchParams.get("ResponseCode");
-         
-          
-            
-          
+            $("#SuccessDeal").click(function () {
+                $.post("https://secure.cardcom.co.il/Interface/BillGoldGetLowProfileIndicator.aspx", {
+                    TerminalNumber: "1000",
+                    UserName: "barak9611",
+                    lowprofilecode: lpc,
+                    codepage: "65001"
+                }, function (data) {
+                    $("#fulldata").html(data);
+                    var data = data;
+                    var ob = {};
+                    ob = postValueToObj(data);
+                     
+                    updateReturnValue(ob.ReturnValue);     //call func send ob.ReturnValue
+     
+                });
 
+            });
+        });
 
+        // update
+        function updateReturnValue(r) {
+
+        $(document).ready(function () {
+            $.post("ws.php",
+                    {
+                        op_id: "1",     // update
+                        ApartmentNumber: r,
+                        balance: "0"
+                    },
+                     function (data, status) {
+                         alert("ok");
+                         window.location.href = "http://localhost/Payment_to_the_House_Committee/V4.1/index.html";
+                     });
+                 });
+
+         }
+
+        function postValueToObj(str) {
+
+       //     var str = "ResponseCode=0&Description=Low Profile Code Found&terminalnumber=1000&lowprofilecode=4f6f6076-aec1-4e47-ac47-a0f5a422f97f&Operation=1&ProssesEndOK=0&DealRespone=0&DealResponse=0&InternalDealNumber=23115766&CardValidityYear=2019&CardValidityMonth=10&CardOwnerID=040617649&NumOfPayments=1&InvoiceResponseCode=0&InvoiceNumber=34735&InvoiceType=1&CallIndicatorResponse=%24result%3a+ResponseCode%3d0%26Description%3dLow+Profile+Co&ExtShvaParams.CardNumber5=0000&ExtShvaParams.Status1=0&ExtShvaParams.Sulac25=6&ExtShvaParams.JParameter29=0&ExtShvaParams.Tokef30=1019&ExtShvaParams.Sum36=5000&ExtShvaParams.SumStars52=00000000&ExtShvaParams.ApprovalNumber71=0012345&ExtShvaParams.FirstPaymentSum78=00000000&ExtShvaParams.ConstPayment86=00000000&ExtShvaParams.NumberOfPayments94=00&ExtShvaParams.AbroadCard119=0&ExtShvaParams.CardTypeCode60=2&ExtShvaParams.Mutag24=2&ExtShvaParams.CardOwnerName=Eli+Chen&ExtShvaParams.CardToken=4cf8e168-261e-4613-8d20-000332986b24&ExtShvaParams.CardHolderIdentityNumber=040617649&ExtShvaParams.CreditType63=1&ExtShvaParams.DealType61=02&ExtShvaParams.ChargType66=50&ExtShvaParams.TerminalNumber=1000&ExtShvaParams.BinId=0&ExtShvaParams.InternalDealNumber=23115766&ExtShvaParams.CouponNumber=05190777&CardOwnerEmail=testsite%40test.co.il&CardOwnerName=Eli+Chen&CardOwnerPhone=039436100&ReturnValue=7&CoinId=1&OperationResponse=0&OperationResponseText=OK";
+            var str = str;
+            var arr = str.split("&");
+            var objResponse = {};
+            var arr2 = [];
+            for (var i = 0; i < arr.length; i++)
+             {
+                arr2 = arr[i].split("=");
+                if (arr2[0].toString().length == 0)
+                    continue;
+
+                if (arr2.length == 1)
+                    arr2[1] = "";
+
+                objResponse[arr2[0]] = arr2[1];
+
+            }
+
+            return objResponse;
+
+        }
+                 
     </script>
 
 </head>
 <body>
- <div class="container-fluid"> 
-  <div class="jumbotron">
-    <h1>העסקה בוצעה בהצלחה</h1> 
-    <br>
-        <h3>חזרה לדף הבית</h3>
-        <a href="https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/index.html" >IndicatorUrl</a>
 
-    </div></div>
+ <div class="container-fluid"> 
+   <div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header"><a class="navbar-brand" href="index.html">Payment House Committee</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-menubuilder">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="admin.html">Admin</a>
+                </li>
+                <li><a href="about.html" class="active">About</a>
+                </li>
+                <li><a href="index.html">The Application</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <h1>Transaction is successful</h1> 
+     
+        <!--<a href="https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/index.html" >חזרה עתידית</a>-->
+
+        <input type="button" id="SuccessDeal" value="click done" />
+        <div id="fulldata" style="display:none;"></div>
+
+     
+    </div> 
 </body>
 </html>

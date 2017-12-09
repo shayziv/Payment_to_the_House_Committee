@@ -1,0 +1,61 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head id="Head1" runat="server">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>page pay</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#submit").click(function () {
+                $.ajax({
+                    url: 'https://secure.cardcom.co.il/External/ExternalClearingPage3.aspx',
+                    type: 'post',
+                    contentType: "application/json; charset=utf-8",
+                    data: {
+                        TerminalNumber: "1000",
+                        PageTxtDesc: "0",
+                        PageTxtDesc: "0",
+                        InvCreateInvoice: "1",
+                        DisplayType: "1",
+                        codepage: "65001",
+                        sum: "15",
+                        description: "description item",
+                        Languages: "en",
+                        Currency: "NIS",
+                        "items.description": "description item",
+                        "items.Cost": "15",
+                        "items.ItemSelectionLock": "true"
+                    } 
+                });
+            });
+        });    
+
+    </script>
+</head>
+<body>
+   <!-- <form action="https://secure.cardcom.co.il/External/ExternalClearingPage3.aspx" method="POST"
+    id="from1">
+     
+        <input name="TerminalNumber"    type="hidden" value="1001" />
+        <input name="PageTxtDesc"       type="hidden" value="0" />
+        <input name="InvCreateInvoice"  type="hidden" value="1" /> 
+        <input name="DisplayType"    type="hidden" value="1" /> 
+        <input name="codepage"    type="hidden" value="65001" /> 
+        <input name="AddCustomerToDirectDebit"    type="hidden" value="0" /> 
+    	<input name="sum"    type="hidden" value="15" />
+        <input name="description"    type="hidden" value="description item" />
+        <input name="Languages"    type="hidden" value="en" />
+        <input name="Currency "    type="hidden" value="NIS" />
+
+         <!-- הוספת פריטים לרכישה  -->
+    <!--  <input name="items.description"       type="hidden" value="description item" /> 
+        <input name="items.Cost"              type="hidden" value="15" /> 
+        <input name="items.ItemSelectionLock" type="hidden" value="true" /> 
+        
+        </form>
+        -->
+    <input id="submit" name="cmdPayNow" type="submit" value="בצע רכישה" />
+    
+</body>
+</html>

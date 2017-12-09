@@ -1,0 +1,167 @@
+﻿<!doctype html>
+<html>
+<head>
+    <!--   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     
+    <script type="text/javascript">
+
+       
+
+        // login admin
+        $(document).ready(function () {
+            $("#login").click(function () {
+                if((($("#usr").val() == "shaydev")) && (($("#pwd").val() == "a1234")))
+                 {
+                    $(".logindiv").hide();
+                    $(".adminPanel").show();
+                 }
+                else
+                {
+                alert("login not ok");
+                } 
+
+            });
+    });
+
+
+    // Insert New Apartment
+    $(document).ready(function () {
+        $("#insertNew").click(function () {
+            var ApartmentNumber1 = ($("#insertApartment").val()); 
+            var firstName1 = ($("#firstName").val());
+            var LastName1 = ($("#lastName").val());
+            var seniority1 = ($("#seniority").val());
+            var floor1 = ($("#floor").val());
+            var Type1 = ($("#Type").val());
+            debugger;
+            $.post("ws.php",
+                {
+                    op_id: "1",     // add new and update
+                    ApartmentNumber: ApartmentNumber1,
+                    firstName: firstName1,
+                    lastName: LastName1,
+                    seniority: seniority1,
+                    Type: Type1,
+                    floor: floor1,
+                    balance: "0"
+                },
+                function (data, status) {
+                    alert("Data: " + data + "\nStatus: " + status);
+                });
+        });
+    });
+
+
+    // Delete Apartment
+        $(document).ready(function () {  
+        $("#deleteApartment").click(function () {
+            var ApartmentNumber2 = ($("#DeleteApartment").val());
+            $.post("ws.php",
+                {
+                    op_id: "2",    // deleteApartment
+                    ApartmentNumber: 1
+                },
+                function (data, status) {
+                    alert("Data: " + data + "\nStatus: " + status);
+                    // ApartmentdeleteD = ApartmentNumber2;
+
+                });
+        });
+    });
+
+    </script>
+</head>
+<body>
+
+<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header"><a class="navbar-brand" href="index.html">Payment House Committee</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-menubuilder">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="admin.html">Admin</a>
+                </li>
+                <li><a href="about.html" class="active">About</a>
+                </li>
+                <li><a href="index.html">The Application</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container" dir="ltr" >
+    
+    <div class="logindiv">
+<label for="usr">User:</label>
+  <input  id="usr" type="text" class="form-control"> 
+     <label for="pwd">Password:</label>
+  <input id="pwd" type="password" class="form-control" >
+    <br>
+<button id="login" type="button" class="btn btn-info">Login</button>
+</div>
+<div class="adminPanel"  > 
+          
+              <label for="sel1">Apartment Number:</label>
+               <select class="form-control" id="insertApartment">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                </select>
+              <label for="sel1">FirstName:</label>
+            <input type="text"   id="firstName" placeholder="FirstName" /><br>
+              <label for="sel1">LastName:</label>
+            <input type="text"   id="lastName" placeholder="LastName" /><br>
+              <label for="sel1">seniority:&nbsp; </label>
+            &nbsp;<input type="text"   id="seniority" placeholder="seniority" /><br>
+            <label for="sel1">Type:</label>
+                <select class="form-control" id="Type">
+                    <option>tenant</option>
+                    <option>owner</option>
+                </select>    
+                <label for="sel1">Floor:</label>
+                <select class="form-control" id="floor">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+              <button id="insertNew" class="btn btn-primary" >Insert / Update New Apartment</button> 
+             <br><br>
+            
+                 <select class="form-control" id="DeleteApartment">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                 </select>
+
+            <button id="deleteApartment" class="btn btn-danger" >Delete Apartment </button><br>
+              <br><br>
+
+             
+               
+</div> 
+ 
+
+</div>
+</body>
+</html>

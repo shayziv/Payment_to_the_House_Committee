@@ -1,0 +1,43 @@
+
+
+post:
+https://secure.cardcom.co.il/Interface/LowProfile.aspx?Operation=1&TerminalNumber=1000&UserName=barak9611&SumToBill=12&CoinID=1&Language=en&ProductName=item&APILevel=10&codepage=65001&SuccessRedirectUrl=www.google.com&ErrorRedirectUrl=www.google.com
+
+resive:
+ResponseCode=0&Description=OK&LowProfileCode=90585de4-14dd-4c8e-b810-438755a6d223&url=https%3a%2f%2fsecure.cardcom.co.il%2fExternal%2flowProfileClearing%2f1000.aspx%3fLowProfileCode%3d90585de4-14dd-4c8e-b810-438755a6d223&PayPalUrl=https%3a%2f%2fsecure.cardcom.co.il%2fExternal%2fLowProfileRedirectToPayPal.aspx%3fTerminalNumber%3d1000%26LowProfileCode%3d90585de4-14dd-4c8e-b810-438755a6d223
+
+Decoder()
+ResponseCode=0&Description=OK&LowProfileCode=90585de4-14dd-4c8e-b810-438755a6d223&url=https://secure.cardcom.co.il/External/lowProfileClearing/1000.aspx?LowProfileCode=90585de4-14dd-4c8e-b810-438755a6d223&PayPalUrl=https://secure.cardcom.co.il/External/LowProfileRedirectToPayPal.aspx?TerminalNumber=1000&LowProfileCode=90585de4-14dd-4c8e-b810-438755a6d223
+
+var
+LowProfileCode=90585de4-14dd-4c8e-b810-438755a6d223
+
+redirect OR ifram
+https://secure.cardcom.co.il/external/LowProfileClearing3.aspx?terminalnumber=1000&lowprofilecode=90585de4-14dd-4c8e-b810-438755a6d223
+
+creat SuccessRedirectUrl + ErrorRedirectUrl - bootstrap desine
+
+carate page notifi IndicatorUrl
+
+IndicatorUrl
+server side save 
+
+get:
+https://secure.cardcom.co.il/Interface/BillGoldGetLowProfileIndicator.aspx?terminalnumber=1000&username=barak9611&lowprofilecode=90585de4-14dd-4c8e-b810-438755a6d223
+
+resive:
+ResponseCode=0&Description=Low Profile Code Found&terminalnumber=1000&lowprofilecode=90585de4-14dd-4c8e-b810-438755a6d223&Operation=1&ProssesEndOK=0&DealRespone=0&DealResponse=0&InternalDealNumber=22177783&CardValidityYear=2019&CardValidityMonth=10&CardOwnerID=040617649&NumOfPayments=1&ExtShvaParams.CardNumber5=0000&ExtShvaParams.Status1=0&ExtShvaParams.Sulac25=6&ExtShvaParams.JParameter29=0&ExtShvaParams.Tokef30=1019&ExtShvaParams.Sum36=1200&ExtShvaParams.SumStars52=00000000&ExtShvaParams.ApprovalNumber71=0012345&ExtShvaParams.FirstPaymentSum78=00000000&ExtShvaParams.ConstPayment86=00000000&ExtShvaParams.NumberOfPayments94=00&ExtShvaParams.AbroadCard119=0&ExtShvaParams.CardTypeCode60=2&ExtShvaParams.Mutag24=2&ExtShvaParams.CardOwnerName=Card+Owner&ExtShvaParams.CardToken=4cf8e168-261e-4613-8d20-000332986b24&ExtShvaParams.CardHolderIdentityNumber=040617649&ExtShvaParams.CreditType63=1&ExtShvaParams.DealType61=02&ExtShvaParams.ChargType66=50&ExtShvaParams.TerminalNumber=1000&ExtShvaParams.BinId=0&ExtShvaParams.InternalDealNumber=22177783&ExtShvaParams.CouponNumber=02187681&CardOwnerEmail=testsite%40test.co.il&CardOwnerName=Card+Owner&CardOwnerPhone=039436100&CoinId=1&OperationResponse=0&OperationResponseText=OK
+
+Decoder()
+ResponseCode=0&Description=Low Profile Code Found&terminalnumber=1000&lowprofilecode=90585de4-14dd-4c8e-b810-438755a6d223&Operation=1&ProssesEndOK=0&DealRespone=0&DealResponse=0&InternalDealNumber=22177783&CardValidityYear=2019&CardValidityMonth=10&CardOwnerID=040617649&NumOfPayments=1&ExtShvaParams.CardNumber5=0000&ExtShvaParams.Status1=0&ExtShvaParams.Sulac25=6&ExtShvaParams.JParameter29=0&ExtShvaParams.Tokef30=1019&ExtShvaParams.Sum36=1200&ExtShvaParams.SumStars52=00000000&ExtShvaParams.ApprovalNumber71=0012345&ExtShvaParams.FirstPaymentSum78=00000000&ExtShvaParams.ConstPayment86=00000000&ExtShvaParams.NumberOfPayments94=00&ExtShvaParams.AbroadCard119=0&ExtShvaParams.CardTypeCode60=2&ExtShvaParams.Mutag24=2&ExtShvaParams.CardOwnerName=Card Owner&ExtShvaParams.CardToken=4cf8e168-261e-4613-8d20-000332986b24&ExtShvaParams.CardHolderIdentityNumber=040617649&ExtShvaParams.CreditType63=1&ExtShvaParams.DealType61=02&ExtShvaParams.ChargType66=50&ExtShvaParams.TerminalNumber=1000&ExtShvaParams.BinId=0&ExtShvaParams.InternalDealNumber=22177783&ExtShvaParams.CouponNumber=02187681&CardOwnerEmail=testsite@test.co.il&CardOwnerName=Card Owner&CardOwnerPhone=039436100&CoinId=1&OperationResponse=0&OperationResponseText=OK
+
+ 
+save data on the server:
+
+
+if(OperationResponse==0){
+	
+	green;
+	
+}
+
