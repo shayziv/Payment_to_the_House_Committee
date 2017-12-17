@@ -54,9 +54,9 @@
                         $("#tenant" + i).html('Apartment Number:' + data[i].ApartmentNumber + '<br /> ' + data[i].firstName + ' ' + data[i].lastName + '  is a ' + data[i].Type + '<br /> floor:' + data[i].floor);
                         totalBal += (data[i].balance);
                         if (data[i].balance < 0) {
-                            $("#tenant" + i).css("background-color", "#EA4335").append("<br /> <button id='" + (data[i].ApartmentNumber) + "' type='button' class= 'btn btn-default'> Need Pay " + Math.abs(data[i].balance) + " ILS </button>");
+                            $("#tenant" + i).css("background-color", "#D9534F").append("<br /> <button id='" + (data[i].ApartmentNumber) + "' type='button' class= 'btn btn-default'> Need To Pay " + Math.abs(data[i].balance) + " ILS </button>");
                         } else {
-                            $("#tenant" + i).css("background-color", "#4CAF50").append("<br /><br />");
+                            $("#tenant" + i).css("background-color", "#5CB85C").append("<br /><br />");
                         }
 
                     } 
@@ -110,11 +110,11 @@
                         //  "InvoiceHead.Email":"shayz2012@gmail.com",
                         APILevel: "10",
                         codepage: "65001",
-                        //    SuccessRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/SuccessPage.html",
-                        SuccessRedirectUrl: "http://localhost/Payment_to_the_House_Committee/V4.1/SuccessPage.html",
+                        SuccessRedirectUrl: "https://shaydev.000webhostapp.com/Payment_to_the_House_Committee/V4.1/SuccessPage.html",
+                      //  SuccessRedirectUrl: "http://localhost/Payment_to_the_House_Committee/V4.1/SuccessPage.html",
                         ErrorRedirectUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/ErrorPage.html",
                         IndicatorUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/IndicatorUrl.php",
-                        CancelUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/index.html"
+                       // CancelUrl: "https://shayzdev.000webhostapp.com/Payment_to_the_House_Committee/index.html"
                     }, function (data) {
                         var Result = decodeURIComponent(data);
                         var urlResult = Result.slice(86, 204);
@@ -161,7 +161,7 @@
 
     <!--buttons-->
     <div class="container">
-        <div class="table-responsive tblgreen">
+        <div class="table-responsive">
 
             <button id="RefreshAjax" class="btn btn-success" >Refresh Ajax</button>
             <br>
@@ -178,7 +178,7 @@
 
 
          <!--   bootstrap table-->
-                <table class="table  table-bordered btn-sm" >
+                <table class="table table-bordered btn-sm" >
                     <tr class="Info">
                         <td id="tenant0" class="tenants">
                         </td>
@@ -205,7 +205,8 @@
                     </tr>
                 </table>
 
-                <p > </p>
+               <br>
+<br>
 
                 <table class="Info">
                     <tr>
@@ -222,6 +223,8 @@
                 <button id="pay_btn" type="button" class="btn btn-info">Pay2 </button>
                 </form>
                 <div id="divResult"></div>-->
+                               <br>
+<br>
             </div>
         </div>
     </div>

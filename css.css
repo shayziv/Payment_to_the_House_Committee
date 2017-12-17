@@ -1,12 +1,15 @@
 
-.table-bordered tr
+.table-bordered tr td
 {
-     background-color:#4CAF50; 
+     background-color:#4CAF50;     
+     -webkit-box-shadow: 8px 7px 8px 6px rgba(73,73,73,0.75); 
+      box-shadow: 8px 7px 8px 6px rgba(73,73,73,0.75);
+
 }
 
 .tenants
 {
-    border-bottom: 2px solid black;
+    border-bottom: 3px solid black;
     text-align: center;
     width:50%;
     height:auto;
